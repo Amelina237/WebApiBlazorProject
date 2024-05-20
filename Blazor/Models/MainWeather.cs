@@ -23,7 +23,7 @@ namespace Models
         public string city {  get; set; }
 
         [Required(ErrorMessage = "Temperature is required.")]
-        [Range(-90, 90, ErrorMessage = "Temperature must be between -50 and 60 Celcius.")]
+        [Range(-50, 60, ErrorMessage = "Temperature must be between -50 and 60 Celcius.")]
         public float? temperature_C { get; set; }
 
         [Required(ErrorMessage = "Humidity is required.")]
