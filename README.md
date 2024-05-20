@@ -12,7 +12,7 @@
 2. Open Microsoft Visual Studio and choose **'Clone a repository'**
 3. Enter the Github link in the 'repository location': **https://github.com/Amelina237/WebApiBlazorProject.git**
    
-   ![firstgit](https://github.com/Amelina237/BlazorWebApiProject/assets/33069266/2e3df554-7dec-4d6d-a7a6-7ef0a1e529f8)
+   ![firstgit](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/d8994b93-065b-4520-b956-48b89c1ef677)
    
 4. Right-click on the Solution and choose Configure Startup Projects
    
