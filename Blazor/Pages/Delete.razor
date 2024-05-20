@@ -1,0 +1,76 @@
+﻿@page "/delete/{id:int}"
+@inject HttpClient httpClient;
+@inject NavigationManager NavigationManager
+@inject IJSRuntime sweetalert
+@using Models
+
+<div class="form-group">
+    <h4>Do you want to delete this data?</h4>
+    <hr />
+    <div class="table-responsive">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="col-sm-2">Latitude</td>
+                <td>@weather.latitude</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Longitude</td>
+                <td>@weather.longitude</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">City</td>
+                <td>@weather.city</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Temperature (C)</td>
+                <td>@weather.temperature_C</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Humidity</td>
+                <td>@weather.humidity</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Condition</td>
+                <td>@weather.condition</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Description</td>
+                <td>@weather.condition_Description</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<br />
+
+<div class="form-group">
+    <input type="submit" value="Delete" @onclick="(async () => await RemoveWeather(weather.id))" class="btn btn-danger" />
+    <button type="button" class="btn btn-outline-dark" @onclick="Cancel">Cancel</button>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    MainWeather weather = new MainWeather();
+    public string url = $"http://localhost:5023/api/Weather/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        weather = await httpClient.GetFromJsonAsync<MainWeather>(url + Convert.ToInt32(Id));
+    }
+
+    protected async Task RemoveWeather(int Id)
+    {
+        await httpClient.DeleteAsync(url + Id);
+        NavigationManager.NavigateTo("/list");
+
+        await sweetalert.InvokeVoidAsync("showAlert", "Success", "Deleted Successfully", "success");
+    }
+
+    public void Cancel()
+    {
+        NavigationManager.NavigateTo("/list");
+    }
+}

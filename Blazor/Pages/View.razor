@@ -1,0 +1,63 @@
+﻿@page "/view/{id:int}"
+@inject HttpClient httpClient;
+@inject NavigationManager NavigationManager
+@using Models
+
+<h3>View Data</h3>
+<hr />
+<div class="form-group">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="col-sm-2">Latitude</td>
+                <td>: @weather.latitude</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Longitude</td>
+                <td>: @weather.longitude</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">City</td>
+                <td>: @weather.city</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Temperature (C)</td>
+                <td>: @weather.temperature_C</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Humidity</td>
+                <td>: @weather.humidity</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Condition</td>
+                <td>: @weather.condition</td>
+            </tr>
+            <tr>
+                <td class="col-sm-2">Description</td>
+                <td>: @weather.condition_Description</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+
+<div class="form-group">
+    <button type="button" class="btn btn-outline-dark" @onclick="Back">Back</button>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    MainWeather weather = new MainWeather();
+    public string url = $"http://localhost:5023/api/Weather/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        weather = await httpClient.GetFromJsonAsync<MainWeather>(url + Convert.ToInt32(Id));
+    }
+
+    public void Back()
+    {
+        NavigationManager.NavigateTo("/list");
+    }
+}

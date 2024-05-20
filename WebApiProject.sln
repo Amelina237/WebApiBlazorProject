@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor", "Blazor\Blazor.csproj", "{10E4BD72-53CD-4AB3-80D5-99E0DDF7B9E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74} = {CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10E4BD72-53CD-4AB3-80D5-99E0DDF7B9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E4BD72-53CD-4AB3-80D5-99E0DDF7B9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E4BD72-53CD-4AB3-80D5-99E0DDF7B9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E4BD72-53CD-4AB3-80D5-99E0DDF7B9E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE64E0CD-9B7D-40DD-80E9-F01EBFD7EB74}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EDC9751-B50B-4048-96A7-8D1381D6BB94}
+	EndGlobalSection
+EndGlobal

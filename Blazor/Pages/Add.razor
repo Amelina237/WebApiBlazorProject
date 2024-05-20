@@ -1,0 +1,190 @@
+﻿@page "/add"
+@page "/edit/{id:int}"
+@* use route parameter to difference two function(add and edit)  *@
+@using Models
+@inject HttpClient httpClient;
+@inject NavigationManager NavigationManager
+@inject IJSRuntime sweetalert
+
+
+<h3>Add Data</h3>
+<hr />
+
+<EditForm Model="@weather" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+    <div class="form-group row col-md-5 mb-3">
+        <label for="latitude" class="col-sm-4 col-form-label">Latitude</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="latitude" placeholder="Eg: 6.151679" @bind="weather.latitude">
+        </div>
+        <ValidationMessage For="@(() => weather.latitude)" />
+    </div>
+
+    <div class="form-group row col-md-5 mb-3">
+        <label for="longitude" class="col-sm-4 col-form-label">Longitude</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="longitude" placeholder="Eg: 102.306908" @bind="weather.longitude">
+        </div>
+        <ValidationMessage For="@(() => weather.longitude)" />
+    </div>
+
+    <div class="form-group row col-md-5 mb-3">
+        <label for="city" class="col-sm-4 col-form-label">City</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="city" placeholder="Eg: Pengkalan Chepa" @bind="weather.city">
+        </div>
+        <ValidationMessage For="@(() => weather.city)" />
+    </div>
+
+    <div class="form-group row col-md-5 mb-3">
+        <label for="temperature" class="col-sm-4 col-form-label">Temperature(C)</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="temperature" placeholder="Eg: 25" @bind="weather.temperature_C">
+        </div>
+        <ValidationMessage For="@(() => weather.temperature_C)" />
+    </div>
+
+    <div class="form-group row col-md-5 mb-3">
+        <label for="humidity" class="col-sm-4 col-form-label">Humidity</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="humidity" placeholder="Eg: 2%" @bind="weather.humidity" @oninput="OnHumidityInput">
+        </div>
+        <ValidationMessage For="@(() => weather.humidity)" />
+    </div>
+
+    <div class="form-group row col-md-5 mb-3">
+        <label for="condition" class="col-sm-4 col-form-label">Condition</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="condition" placeholder="Eg: dry" @bind="weather.condition" readonly>
+        </div>
+    </div>
+
+    <div class="form-group row col-md-5 mb-3">
+        <label for="condition_description" class="col-sm-4 col-form-label">Description</label>
+        <div class="col-sm-6">
+            <textarea class="form-control" id="condition_description" rows="3" placeholder="Air is dry" @bind="weather.condition_Description" readonly></textarea>
+        </div>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="button" class="btn btn-outline-dark" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    public string Title = "Add";
+
+    private MainWeather weather = new();
+
+    bool isSuccess;
+
+    public string url = $"http://localhost:5023/api/Weather/";
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        if (id != 0) //dapatkan detail each weather
+        {
+            Title = "Edit";
+            weather = await httpClient.GetFromJsonAsync<MainWeather>(url + id);
+        }
+    }
+
+    protected async Task Save()
+    {
+        try
+        {
+            if (weather.id != 0)    //edit
+            {
+                string newUrl = $"{url}{weather.id}";
+                await httpClient.PutAsJsonAsync<MainWeather>(newUrl, weather);
+                NavigationManager.NavigateTo("/list");
+                await sweetalert.InvokeVoidAsync("showAlert", "Success", "Updated", "success");
+            }
+            else //add
+            {
+
+                var response = await httpClient.PostAsJsonAsync(url, weather);
+                var weatherResponse = await response.Content.ReadFromJsonAsync<WeatherResponse>();
+
+                if (weatherResponse.Success == false)
+                {
+                    await sweetalert.InvokeVoidAsync("showAlert", "Warning", weatherResponse.Message, "warning");
+                }
+
+                else
+                {
+                    await sweetalert.InvokeVoidAsync("showAlert", "Success", "Added Successfully", "success");
+
+                }
+
+                NavigationManager.NavigateTo("/list");
+            }
+        }
+        catch (HttpRequestException)
+        {
+            await sweetalert.InvokeVoidAsync("showAlert", "Error", "An error occurred while fetching weather data.", "error");
+        }
+    }
+
+    public void Cancel()
+    {
+        NavigationManager.NavigateTo("/list");
+    }
+
+    private void OnHumidityInput(ChangeEventArgs e)
+    {
+        //pass string to int value
+        if (int.TryParse(e.Value.ToString(), out int humidity))
+        {
+            weather.humidity = humidity;
+            UpdateWeatherCondition();
+        }
+        else if (string.IsNullOrWhiteSpace(e.Value?.ToString()))
+        {
+            weather.humidity = null;
+            weather.condition = string.Empty;
+            weather.condition_Description = string.Empty;
+        }
+    }
+
+    private void UpdateWeatherCondition()
+    {
+        int? humidity = weather.humidity;
+        if (humidity < 30)
+        {
+            weather.condition = "Dry";
+            weather.condition_Description = "The air is dry.";
+        }
+        else if (humidity >= 30 && humidity < 50)
+        {
+            weather.condition = "Comfortable";
+            weather.condition_Description = "The air is comfortable.";
+        }
+        else if (humidity >= 50 && humidity < 60)
+        {
+            weather.condition = "Slightly Humid";
+            weather.condition_Description = "The air is slightly humid.";
+        }
+        else if (humidity >= 60 && humidity < 70)
+        {
+            weather.condition = "Humid";
+            weather.condition_Description = "The air is humid.";
+        }
+        else if (humidity >= 70 && humidity < 80)
+        {
+            weather.condition = "Very Humid";
+            weather.condition_Description = "The air is very humid.";
+        }
+        else 
+        {
+            weather.condition = "Oppressive";
+            weather.condition_Description = "The air is oppressive.";
+        }
+    }
+}
+
+
+
+
