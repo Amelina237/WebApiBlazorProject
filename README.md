@@ -10,7 +10,7 @@
 
 1. Download and install DB Browser SQL Lite at this link: https://sqlitebrowser.org/dl/
 2. Open Microsoft Visual Studio and choose **'Clone a repository'**
-3. Enter the Github link in the 'repository location': **https://github.com/Amelina237/BlazorWebApiProject.git**
+3. Enter the Github link in the 'repository location': **https://github.com/Amelina237/WebApiBlazorProject.git**
    
    ![firstgit](https://github.com/Amelina237/BlazorWebApiProject/assets/33069266/2e3df554-7dec-4d6d-a7a6-7ef0a1e529f8)
    
