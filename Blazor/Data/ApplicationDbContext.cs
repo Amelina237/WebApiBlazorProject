@@ -16,11 +16,10 @@ namespace Blazor.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = Configuration.GetConnectionString("WeatherDB");
-
-            // Resolve the relative path
+            
             var baseDirectory = AppContext.BaseDirectory;
-            var resolvedPath = Path.Combine(baseDirectory, "Data", "Weather.db");
+            var projectRootPath = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\.."));
+            var resolvedPath = Path.Combine(projectRootPath, "Blazor", "Data", "Weather.db");
             var resolvedConnectionString = $"Data Source={resolvedPath}";
 
             optionsBuilder.UseSqlite(resolvedConnectionString);
