@@ -16,7 +16,7 @@
    
 4. Right-click on the Solution and choose Configure Startup Projects
    
-   ![g2](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/0c58e95b-df05-4023-b9c6-ef7e39a94bb2)
+   ![g2](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/1b3f5080-ce2c-4ac7-ae0e-fffca961941d)
    
 5. Choose **Multiple Startup Projects** and on the Action Tab set **Start** for both Blazor and Api
    
