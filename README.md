@@ -24,7 +24,7 @@
    
 6. Run the application by clicking on Start. It will open tab Swagger and Blazor UI at the same time
  
-   ![start](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/bb7e18ff-7895-4fa9-82ef-c30ea6074887)
+   ![start](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/e7f96ae4-10a1-4c6e-806c-723bef5a2c34)
 
 7. Open DB Browser then click Open Database. Choose the path of Weather.db in the Data folder.
    
