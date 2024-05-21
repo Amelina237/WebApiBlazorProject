@@ -20,7 +20,7 @@
    
 5. Choose **Multiple Startup Projects** and on the Action Tab set **Start** for both Blazor and Api
    
-   ![g3](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/ef23cb27-b976-43af-9372-e9d525288822)
+   ![g3](https://github.com/Amelina237/WebApiBlazorProject/assets/33069266/1bbaf9c5-7f9e-46bc-b8bd-09f2b653554c)
    
 6. Run the application by clicking on Start. It will open tab Swagger and Blazor UI at the same time
  
