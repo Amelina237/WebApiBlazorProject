@@ -15,7 +15,8 @@
     <div class="form-group row col-md-5 mb-3">
         <label for="latitude" class="col-sm-4 col-form-label">Latitude</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" id="latitude" placeholder="Eg: 6.151679" @bind="weather.latitude">
+            <input type="number" class="form-control" id="latitude" placeholder="Eg: 6.151679" @bind="weather.latitude" max="100.0" step="any" />
+
         </div>
         <ValidationMessage For="@(() => weather.latitude)" />
     </div>
